@@ -95,7 +95,7 @@ namespace Bankomat
                         DepositMoney();
                         break;
                     case "2":
-                        WithdrawMoney(); // Jag kan ta ut mer pengar än vad som finns på kontot. Måste fixas. 
+                        WithdrawMoney();
                         break;
                     case "3":
                         ShowBalance();
