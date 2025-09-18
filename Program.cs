@@ -53,8 +53,14 @@ namespace Bankomat
             Console.WriteLine("\nAnge belopp för att ta ut:");
             if (decimal.TryParse(Console.ReadLine(), out decimal value))
             {
-                account.WithdrawMoney(value);
-                Console.WriteLine($"\nDu har tagit ut {value} kr.");
+               if (account.WithdrawMoney(value))
+                {
+                    Console.WriteLine($"\nDu har tagit ut {value} kr.");
+                }
+               else
+                {
+                    Console.WriteLine("\nDu har inte tillräckligt med pengar på kontot.");
+                }
             }
             else Console.WriteLine("Ogiltigt belopp");
         }
@@ -89,7 +95,7 @@ namespace Bankomat
                         DepositMoney();
                         break;
                     case "2":
-                        WithdrawMoney();
+                        WithdrawMoney(); // Jag kan ta ut mer pengar än vad som finns på kontot. Måste fixas. 
                         break;
                     case "3":
                         ShowBalance();
@@ -102,7 +108,7 @@ namespace Bankomat
                         Console.WriteLine("Ogiltigt val. Försök igen.");
                         break;
                 }
-
+                
             }
         }
 
