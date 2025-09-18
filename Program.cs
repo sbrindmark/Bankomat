@@ -4,10 +4,11 @@ namespace Bankomat
 {
     internal class Program
     {
-
+        // Metod för att autentisera användaren med pinkod, max 3 försök
         static void AuthenticateUser()
         {
-            while (isUser)
+            int wrongPin = 0;
+            while (wrongPin < 3)
             {
                 Console.WriteLine("Ange din pinkod för att logga in:"); 
                 string input = Console.ReadLine();
@@ -15,14 +16,20 @@ namespace Bankomat
                 {
                     isUser = false;
                     Console.Clear();
+                    return; // Avsluta metoden om pinkoden är korrekt
                 }
-                else
+                else 
                 {
-                    Console.WriteLine("Fel pinkod");
-
+                    wrongPin++;
+                    Console.WriteLine($"Fel pinkod. DU har {3 - wrongPin} försök kvar.");
                 }
             }
+            // Om användaren misslyckas tre gånger, avsluta programmet
+            Console.WriteLine("Du har slagit fel pinkod tre gånger. Programmet avslutas.");
+            Exit();
         }
+
+        // Visar huvudmenyn för bankomaten
         static void ShowMenu()
         {
             Console.WriteLine("\n╔══════════════════════╗");
@@ -33,8 +40,11 @@ namespace Bankomat
             Console.WriteLine("3. Visa saldo");
             Console.WriteLine("4. Avsluta");
         }
+
+        // Skapar ett nytt bankkonto
         static BankAccount account = new BankAccount();
 
+        // Metod för att sätta in pengar på kontot
         static void DepositMoney()
         {
             Console.WriteLine("\nAnge belopp att sätta in");
@@ -48,16 +58,18 @@ namespace Bankomat
                 Console.WriteLine("Ogiltigt belopp");
             }
         }
+
+        // Metod för att ta ut pengar från kontot
         static void WithdrawMoney()
         {
             Console.WriteLine("\nAnge belopp för att ta ut:");
             if (decimal.TryParse(Console.ReadLine(), out decimal value))
             {
-               if (account.WithdrawMoney(value))
+                if (account.WithdrawMoney(value))
                 {
                     Console.WriteLine($"\nDu har tagit ut {value} kr.");
                 }
-               else
+                else
                 {
                     Console.WriteLine("\nDu har inte tillräckligt med pengar på kontot.");
                 }
@@ -65,10 +77,13 @@ namespace Bankomat
             else Console.WriteLine("Ogiltigt belopp");
         }
 
+        // Visar nuvarande saldo på kontot
         static void ShowBalance()
         {
             Console.WriteLine($"Ditt saldo är: {account.Balance} kr.");
         }
+
+        // Pausar och rensar konsolen
         static void PauseAndClear()
         {
             Console.WriteLine("\nTryck på valfri tangent för att fortsätta...");
@@ -76,23 +91,26 @@ namespace Bankomat
             Console.Clear();
         }
 
+        // Avslutar programmet
         static void Exit()
         {
             Environment.Exit(0);
         }
 
-
+        // Pinkod för användaren
         const string userPin = "1337";
+        // Flagga för om användaren är inloggad
         static bool isUser = true;
 
-            static void Main(string[] args)
+        // Huvudmetod som kör programmet
+        static void Main(string[] args)
         {
             bool running = true;
             while (running)
             {
-                AuthenticateUser();
+                AuthenticateUser(); // Autentisera användaren
                 Console.Clear();
-                ShowMenu();
+                ShowMenu(); // Visa menyn
                 Console.WriteLine("Välj ett alternativ i menyn:");
                 string menyChoice = Console.ReadLine();
 
@@ -113,14 +131,11 @@ namespace Bankomat
                     case "4":
                         Exit();
                         break;
-
                     default:
                         Console.WriteLine("Ogiltigt val. Försök igen.");
                         break;
                 }
-                
             }
         }
-
     }
 }
