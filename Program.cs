@@ -25,9 +25,9 @@ namespace Bankomat
         }
         static void ShowMenu()
         {
-            Console.WriteLine("\n###########");
-            Console.WriteLine("Bankomaten!");
-            Console.WriteLine("###########\n");
+            Console.WriteLine("\n╔══════════════════════╗");
+            Console.WriteLine("║      BANKOMATEN      ║");
+            Console.WriteLine("╚══════════════════════╝");
             Console.WriteLine("1. Sätt in pengar");
             Console.WriteLine("2. Ta ut pengar");
             Console.WriteLine("3. Visa saldo");
@@ -69,7 +69,13 @@ namespace Bankomat
         {
             Console.WriteLine($"Ditt saldo är: {account.Balance} kr.");
         }
-        
+        static void PauseAndClear()
+        {
+            Console.WriteLine("\nTryck på valfri tangent för att fortsätta...");
+            Console.ReadKey();
+            Console.Clear();
+        }
+
         static void Exit()
         {
             Environment.Exit(0);
@@ -85,6 +91,7 @@ namespace Bankomat
             while (running)
             {
                 AuthenticateUser();
+                Console.Clear();
                 ShowMenu();
                 Console.WriteLine("Välj ett alternativ i menyn:");
                 string menyChoice = Console.ReadLine();
@@ -93,12 +100,15 @@ namespace Bankomat
                 {
                     case "1":
                         DepositMoney();
+                        PauseAndClear();
                         break;
                     case "2":
                         WithdrawMoney();
+                        PauseAndClear();
                         break;
                     case "3":
                         ShowBalance();
+                        PauseAndClear();
                         break;
                     case "4":
                         Exit();

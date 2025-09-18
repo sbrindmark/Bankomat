@@ -27,7 +27,7 @@ namespace Bankomat
             }
             return false;
         }
-        
-        
+
+
     }
 }
