@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Bankomat
 {
-    internal class BankAccount
+    public class BankAccount
     {
-        private decimal balance = 0; //känslig data
+        private decimal balance = 0; 
         public decimal Balance => balance;
         
         public void DepositMoney(decimal amount)

@@ -105,10 +105,10 @@ namespace Bankomat
         // Huvudmetod som kör programmet
         static void Main(string[] args)
         {
+            AuthenticateUser(); // Autentisera användaren
             bool running = true;
             while (running)
             {
-                AuthenticateUser(); // Autentisera användaren
                 Console.Clear();
                 ShowMenu(); // Visa menyn
                 Console.WriteLine("Välj ett alternativ i menyn:");
